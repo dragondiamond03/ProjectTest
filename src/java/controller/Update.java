@@ -20,7 +20,7 @@ import model.Profile;
  */
 @WebServlet(name = "Update", urlPatterns = {"/edit"})
 public class Update extends HttpServlet {
-
+private static final String ACTION_1 = "studentid";
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -32,7 +32,7 @@ public class Update extends HttpServlet {
             out.println("<title>Servlet Update</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet Update at " + request.getParameter("studentid") + "</h1>");
+            out.println("<h1>Servlet Update at " + request.getParameter(ACTION_1) + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -44,7 +44,7 @@ public class Update extends HttpServlet {
 //        processRequest(request, response);
         DAO dao = new DAO();
         Profile p = new Profile();
-        p = dao.getUser(request.getParameter("studentid"));
+        p = dao.getUser(request.getParameter(ACTION_1));
         request.setAttribute("u", p);
         request.getRequestDispatcher("Update.jsp").forward(request, response);
     }
@@ -53,7 +53,7 @@ public class Update extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 //        processRequest(request, response);
-        String studentid = request.getParameter("studentid");
+        String studentid = request.getParameter(ACTION_1);
         String firstname = request.getParameter("firstname");
         String lastname = request.getParameter("lastname");
         String dateofbirth = request.getParameter("dateofbirth");
